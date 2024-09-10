@@ -14,29 +14,25 @@ $Env:VCPKG_ROOT = "C:\dev\vcpkg"
 $Env:Path += ';C:\Program Files\Inkscape\bin'
 $Env:Path += ";$Env:VCPKG_ROOT"
 
-# Prompt
-#function Prompt {
-#    $prompt = Write-Prompt "$env:USERNAME@$env:COMPUTERNAME" -ForegroundColor ([ConsoleColor]::Green)
-#    $prompt += ":$($executionContext.SessionState.Path.CurrentLocation)$('>' * ($nestedPromptLevel + 1)) "
-#    $prompt
-#}
-
-# ==============================================
-# SHELL EXTENSIONS
-# ==============================================
-
 # Init oh-my-posh outside of neovim
-if ($null -eq $Env:NVIM) {
+$has_oh_my_posh = [bool](Get-Command -Name "oh-my-posh.exe" -ErrorAction SilentlyContinue)
+$has_zoxide = [bool](Get-Command -Name "oh-my-posh.exe" -ErrorAction SilentlyContinue)
+if (!$Env:NVIM -and $has_oh_my_posh) {
   # Load Oh-my-posh theme https://ohmyposh.dev/docs/themes
   oh-my-posh init pwsh --config "~/.config/oh-my-posh/catppuccin.omp.json" | Invoke-Expression
-  # Using posh-git module for autocompletion
-  $env:POSH_GIT_ENABLED = $true
+} else {
+  function Prompt {
+    #$prompt = "$env:USERNAME@$env:COMPUTERNAME "
+    $prompt += "$($executionContext.SessionState.Path.CurrentLocation)$('>' * ($nestedPromptLevel + 1)) "
+    $prompt
+  }
 }
 
-
 # Init zoxide
-Invoke-Expression (& { (zoxide init --cmd j powershell | Out-String) })
-# (zoxide init powershell | Out-String) | Invoke-Expression # Same as above
+if ($has_zoxide) {
+  Invoke-Expression (& { (zoxide init --cmd j powershell | Out-String) })
+  # (zoxide init powershell | Out-String) | Invoke-Expression # Same as above
+}
 
 # ==============================================
 # SHELL ALIASES
