@@ -1,0 +1,76 @@
+[include]
+ path = catppuccin.gitconfig
+
+[user]
+  name = Ngô Văn Cảnh
+  email = canh25xp@gmail.com
+
+[credential]
+  helper = store
+
+[credential "https://github.com"]
+  helper =
+  username = canh25xp
+  helper = !gh auth git-credential
+
+[credential "https://gist.github.com"]
+  helper =
+  helper = !gh auth git-credential
+
+[credential "https://huggingface.co"]
+  provider = generic
+
+[filter "lfs"]
+  required = true
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge --skip -- %f
+  process = git-lfs filter-process --skip
+
+[core]
+  pager = delta
+  editor = nvim
+
+[init]
+  defaultBranch = main
+
+[pull]
+  rebase = true
+
+[push]
+  autoSetupRemote = true
+
+[diff]
+  colorMoved = default
+
+[interactive]
+  diffFilter = delta --color-only
+
+[delta]
+  features = decorations
+  line-numbers = true
+  navigate = true
+
+[merge]
+  tool = nvimdiff
+  conflictstyle = diff3
+
+[mergetool]
+  prompt = false
+  keepBackup = false
+
+[mergetool "nvimdiff"]
+  layout = "MERGED"
+
+[alias]
+  s = status --short
+  a = add
+  c = commit --verbose
+  ca = commit --all --verbose
+  cm = commit --amend --verbose
+  d = diff
+  ds = diff --stat
+  dc = diff --cached
+  nuke = "!git reset --hard HEAD && git clean -fd"
+  logs = log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=short
+  list = ls-tree --full-tree --name-only -r HEAD
+  alias = "!git config -l | grep alias | cut -c 7-"
