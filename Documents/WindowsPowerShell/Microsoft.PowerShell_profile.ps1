@@ -64,6 +64,7 @@ Set-Alias -Name pro     -Value Open-Profile
 Set-Alias -Name word    -Value Open-WinWord
 Set-Alias -Name cdx     -Value Open-ListFile
 Set-Alias -Name cfg     -Value Get-Config
+Set-Alias -Name lcfg     -Value Get-LazyConfig
 
 # Abbreviated aliases
 Set-Alias -Name np      -Value notepad
@@ -83,6 +84,11 @@ Set-Alias -Name linux   -Value Open-DefaultDistro
 function Get-Config(){
   param()
     git --git-dir=$HOME/.cfg/ --work-tree=$HOME $args
+}
+
+function Get-LazyConfig(){
+  param()
+    lazygit --git-dir=$HOME/.cfg/ --work-tree=$HOME $args
 }
 
 function Open-Telegram {
