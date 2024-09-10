@@ -8,7 +8,7 @@ using namespace System.Management.Automation.Language
 # Init enviroment variables
 $Env:EDITOR = "nvim"
 $Env:PAGER = "less"
-$Env:NVIM_APPNAME = "nvim-kickstart"
+#$Env:NVIM_APPNAME = "nvim-kickstart"
 $Env:VCPKG_ROOT = "C:\dev\vcpkg"
 
 $Env:Path += ';C:\Program Files\Inkscape\bin'
