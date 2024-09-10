@@ -74,3 +74,12 @@
   logs = log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=short
   list = ls-tree --full-tree --name-only -r HEAD
   alias = "!git config -l | grep alias | cut -c 7-"
+  diff-file-last-commit = "!f() { \
+    project_root_dir=$(git rev-parse --show-toplevel); \
+    echo finding full file path of $1 in $project_root_dir; \
+    filepath=$(find $project_root_dir -type f -name $1); \
+    echo full file path $filepath; \
+    last_modified_commit_hash=$(git rev-list -1 HEAD $filepath); \
+    echo last commit file modified $last_modified_commit_hash; \
+    git difftool $last_modified_commit_hash^ $filepath; \
+  }; f"
