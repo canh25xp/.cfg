@@ -10,6 +10,7 @@ $Env:EDITOR = "nvim"
 $Env:PAGER = "less"
 #$Env:NVIM_APPNAME = "nvim-kickstart"
 $Env:VCPKG_ROOT = "C:\dev\vcpkg"
+$Env:TEALDEER_CONFIG_DIR = "$HOME\.config\tealdeer"
 
 $Env:Path += ';C:\Program Files\Inkscape\bin'
 $Env:Path += ";$Env:VCPKG_ROOT"
